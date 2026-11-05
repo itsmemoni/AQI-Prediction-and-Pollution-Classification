@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AQI Prediction System</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="container">
+    <header>
+      <p class="tag">TEAM 6 · MAJOR PROJECT · ROUTE A</p>
+      <h1>Air Quality Index Prediction</h1>
+      <p class="subtitle">Enter pollutant measurements to estimate AQI and classify the pollution level.</p>
+    </header>
+
+    <form method="POST" class="panel">
+      <h2>Pollutant measurements</h2>
+      <div class="grid">
+        <label>PM2.5 <span>(µg/m³)</span><input name="pm25" type="number" step="any" min="0" placeholder="e.g. 35" required></label>
+        <label>PM10 <span>(µg/m³)</span><input name="pm10" type="number" step="any" min="0" placeholder="e.g. 70" required></label>
+        <label>NO₂ <span>(µg/m³)</span><input name="no2" type="number" step="any" min="0" placeholder="e.g. 20" required></label>
+        <label>SO₂ <span>(µg/m³)</span><input name="so2" type="number" step="any" min="0" placeholder="e.g. 8" required></label>
+        <label>CO <span>(mg/m³)</span><input name="co" type="number" step="any" min="0" placeholder="e.g. 0.8" required></label>
+        <label>O₃ <span>(µg/m³)</span><input name="o3" type="number" step="any" min="0" placeholder="e.g. 30" required></label>
+      </div>
+      <button type="submit">Predict AQI</button>
+      {% if error %}<p class="error">{{ error }}</p>{% endif %}
+    </form>
+
+    {% if result %}
+    <section class="result panel">
+      <p class="tag">PREDICTION RESULT</p>
+      <div class="aqi">{{ result.aqi }}</div>
+      <h2>{{ result.level }}</h2>
+      <p>{{ result.advice }}</p>
+      <p class="note">This is an academic demonstration using the included sample dataset, not an official AQI reading.</p>
+    </section>
+    {% endif %}
+    <footer>Machine Learning · Random Forest Regression · Flask</footer>
+  </main>
+</body>
+</html>
